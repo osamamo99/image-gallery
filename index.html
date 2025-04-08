@@ -58,6 +58,17 @@
       border: 1px solid #ccc;
       padding: 5px;
     }
+  /* Tumhara pehla CSS code... sab waisa hi rehne do */
+
+  .folder-grid {
+    display: none; /* Ye line add karo to hide folders initially */
+  }
+
+  .folder-title {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+  }
   </style>
 </head>
 <body>
@@ -68,10 +79,17 @@
   </div>
   <div class="image-container" id="imageContainer"></div>
 
-  <div class="folder-view">
-    <h3>Image Folder</h3>
-    <div class="folder-grid" id="folderGrid"></div>
-  </div>
+  <!-- Add this inside <body> AFTER the search section but BEFORE <script> -->
+<div class="folder-view">
+ <h3 class="folder-title" onclick="toggleFolder('jaalGrid')">Jaal Images</h3>
+<div class="folder-grid" id="jaalGrid"></div>
+
+<h3 class="folder-title" onclick="toggleFolder('baderGrid')">Bader Images</h3>
+<div class="folder-grid" id="baderGrid"></div>
+
+<h3 class="folder-title" onclick="toggleFolder('bodyGrid')">Body Images</h3>
+<div class="folder-grid" id="bodyGrid"></div>
+</div>
 
   <script>
     const images = [
@@ -108,14 +126,26 @@
     const folderGrid = document.getElementById('folderGrid');
 
     // Display all images in folder view
-    images.forEach(img => {
-      const imgEl = document.createElement('img');
-      imgEl.src = img.src;
-      imgEl.alt = img.name;
-      imgEl.title = img.name;
-      imgEl.onclick = () => displayImage(img);
-      folderGrid.appendChild(imgEl);
-    });
+    const jaalGrid = document.getElementById('jaalGrid');
+const baderGrid = document.getElementById('baderGrid');
+const bodyGrid = document.getElementById('bodyGrid');
+
+// Folder-wise display
+images.forEach(img => {
+  const imgEl = document.createElement('img');
+  imgEl.src = img.src;
+  imgEl.alt = img.name;
+  imgEl.title = img.name;
+  imgEl.onclick = () => displayImage(img);
+  
+  if (img.name.includes("Jaal")) {
+    jaalGrid.appendChild(imgEl);
+  } else if (img.name.includes("Bader")) {
+    baderGrid.appendChild(imgEl);
+  } else if (img.name.includes("Body")) {
+    bodyGrid.appendChild(imgEl);
+  }
+});
 
     // Search functionality
     search.addEventListener('input', () => {
@@ -141,6 +171,10 @@
       suggestions.innerHTML = '';
       search.value = image.name;
     }
+    function toggleFolder(id) {
+  const folder = document.getElementById(id);
+  folder.style.display = folder.style.display === 'flex' ? 'none' : 'flex';
+}
   </script>
 </body>
 </html>
