@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced Image Gallery</title>
-  <style>
+<style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
@@ -12,13 +12,13 @@
     color: #333;
     text-align: center;
   }
-
+  
   .search-box {
     position: relative;
     max-width: 400px;
     margin: 0 auto 30px;
   }
-
+  
   input[type="text"] {
     width: 100%;
     padding: 12px;
@@ -26,7 +26,7 @@
     border: 1px solid #ccc;
     border-radius: 8px;
   }
-
+  
   .suggestions {
     position: absolute;
     background-color: white;
@@ -37,17 +37,17 @@
     z-index: 1;
     border-radius: 0 0 8px 8px;
   }
-
+  
   .suggestion-item {
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
   }
-
+  
   .suggestion-item:hover {
     background-color: #f0f0f0;
   }
-
+  
   .image-container img {
     max-width: 100%;
     height: auto;
@@ -55,7 +55,7 @@
     border: 2px solid #ccc;
     border-radius: 10px;
   }
-
+  
   .folder-view {
     max-width: 900px;
     margin: 0 auto;
@@ -63,15 +63,15 @@
     flex-direction: column;
     gap: 20px;
   }
-
+  
   .folder-box {
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   }
-
+  
   .folder-title {
     cursor: pointer;
     color: #007bff;
@@ -80,7 +80,7 @@
     font-weight: bold;
     margin-bottom: 10px;
   }
-
+  
   .folder-grid {
     display: none;
     flex-wrap: wrap;
@@ -88,7 +88,7 @@
     gap: 10px;
     margin-top: 15px;
   }
-
+  
   .folder-grid img {
     width: 140px;
     height: auto;
@@ -97,7 +97,7 @@
     cursor: pointer;
     transition: transform 0.2s;
   }
-
+  
   .folder-grid img:hover {
     transform: scale(1.05);
     border-color: #007bff;
@@ -122,9 +122,11 @@
 
 <h3 class="folder-title" onclick="toggleFolder('bodyGrid')">Body Images</h3>
 <div class="folder-grid" id="bodyGrid"></div>
+
+
 </div>
 
-  <script>
+<script>
   const images = [
     { name: '106639_Body', src: 'my_images/106639_Body.jpg' },
     { name: '108734_Jaal', src: 'my_images/108734_Jaal.jpg' },
@@ -147,8 +149,9 @@
     { name: '259181_Body', src: 'my_images/259181_Body.jpg' },
     { name: '67205_Body', src: 'my_images/67205_Body.jpg' },
     { name: '86907_Jaal', src: 'my_images/86907_Jaal.jpg' },
-    { name: '93922_Body', src: 'my_images/93922_Body.jpg' }
-  ];
+    { name: '93922_Body', src: 'my_images/93922_Body.jpg' },
+      // Add more images here manually or load from a server
+    ];
 
     const search = document.getElementById('search');
     const suggestions = document.getElementById('suggestions');
