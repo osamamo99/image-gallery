@@ -2,139 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Force desktop view on all devices -->
+  <meta name="viewport" content="width=1024, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Advanced Image Gallery</title>
   <style>
     body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
-background: url('my_images/bg.jpg') no-repeat center center fixed;
-background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      background: url('my_images/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
     }
-h2 {
-  text-align: center;
-  color: #333;
-  font-size: 28px;
-  margin-bottom: 25px;
-}
 
-.search-box {
-  position: relative;
-  margin-bottom: 20px;
-}
+    h2 {
+      text-align: center;
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
 
-input[type="text"] {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 16px;
-  border: 2px solid #00a8ff;
-  border-radius: 8px;
-  outline: none;
-  transition: 0.3s;
-}
+    .search-box {
+      position: relative;
+      margin-bottom: 20px;
+    }
 
-input[type="text"]:focus {
-  border-color: #1abc9c;
-  box-shadow: 0 0 6px rgba(26, 188, 156, 0.3);
-}
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid #00a8ff;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s;
+    }
 
-.suggestions {
-  position: absolute;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  max-height: 180px;
-  overflow-y: auto;
-  width: 100%;
-  z-index: 5;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+    input[type="text"]:focus {
+      border-color: #1abc9c;
+      box-shadow: 0 0 6px rgba(26, 188, 156, 0.3);
+    }
 
-.suggestion-item {
-  padding: 12px 14px;
-  cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
-}
+    .suggestions {
+      position: absolute;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      max-height: 180px;
+      overflow-y: auto;
+      width: 100%;
+      z-index: 5;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
 
-.suggestion-item:hover {
-  background-color: #e3f2fd;
-  color: #007bff;
-}
+    .suggestion-item {
+      padding: 12px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #f0f0f0;
+    }
 
-.image-container img {
-  max-width: 100%;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s;
-}
+    .suggestion-item:hover {
+      background-color: #e3f2fd;
+      color: #007bff;
+    }
 
-.image-container img:hover {
-  transform: scale(1.02);
-}
+    .image-container img {
+      max-width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s;
+    }
 
-.download-btn {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: linear-gradient(to right, #00c6ff, #0072ff);
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s;
-}
+    .image-container img:hover {
+      transform: scale(1.02);
+    }
 
-.download-btn:hover {
-  background: linear-gradient(to right, #0072ff, #00c6ff);
-}
+    .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
 
-.folder-view {
-  margin-top: 40px;
-}
+    .download-btn:hover {
+      background: linear-gradient(to right, #0072ff, #00c6ff);
+    }
 
-.folder-title {
-  cursor: pointer;
-  padding: 12px 18px;
-  margin-bottom: 8px;
-  background: linear-gradient(to right, #f093fb, #f5576c);
-  color: white;
-  font-weight: bold;
-  border-radius: 8px;
-  transition: background 0.3s;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
+    .folder-view {
+      margin-top: 40px;
+    }
 
-.folder-title:hover {
-  background: linear-gradient(to right, #f5576c, #f093fb);
-}
+    .folder-title {
+      cursor: pointer;
+      padding: 12px 18px;
+      margin-bottom: 8px;
+      background: linear-gradient(to right, #f093fb, #f5576c);
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.3s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
 
-.folder-grid {
-  display: none;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 10px;
-  padding: 12px;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+    .folder-title:hover {
+      background: linear-gradient(to right, #f5576c, #f093fb);
+    }
 
-.folder-grid img {
-  width: 100px;
-  height: auto;
-  cursor: pointer;
-  border-radius: 6px;
-  border: 2px solid transparent;
-  transition: transform 0.3s, border-color 0.3s;
-}
+    .folder-grid {
+      display: none;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
 
-.folder-grid img:hover {
-  transform: scale(1.08);
-  border-color: #00a8ff;
-}
+    .folder-grid img {
+      width: 100px;
+      height: auto;
+      cursor: pointer;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .folder-grid img:hover {
+      transform: scale(1.08);
+      border-color: #00a8ff;
+    }
   </style>
 </head>
 <body>
@@ -216,7 +218,6 @@ input[type="text"]:focus {
       }
     });
 
-    // Show image and hide folders
     function displayImage(image) {
       imageContainer.innerHTML = `
         <img src="${image.src}" alt="${image.name}">
@@ -225,11 +226,9 @@ input[type="text"]:focus {
       `;
       suggestions.innerHTML = '';
       search.value = image.name;
-
       document.querySelectorAll('.folder-grid').forEach(folder => folder.style.display = 'none');
     }
 
-    // Toggle folders on click
     function toggleFolder(id) {
       const folder = document.getElementById(id);
       const isVisible = folder.style.display === 'flex';
@@ -240,7 +239,6 @@ input[type="text"]:focus {
       if (!isVisible) folder.style.display = 'flex';
     }
 
-    // Search feature
     search.addEventListener('input', () => {
       const query = search.value.toLowerCase();
       suggestions.innerHTML = '';
@@ -261,4 +259,4 @@ input[type="text"]:focus {
     });
   </script>
 </body>
-</html>
+    </html>
