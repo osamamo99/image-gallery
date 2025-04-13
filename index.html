@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=1024">
   <title>Advanced Image Gallery</title>
   <style>
     body {
@@ -10,11 +10,7 @@
       padding: 20px;
       max-width: 700px;
       margin: auto;
-      background-image: url('my_images/bg.JPG');
-background-size: cover;
-background-repeat: no-repeat;
-background-attachment: fixed;
-background-position: center;
+      background: #f9f9f9;
     }
 
     .search-box {
@@ -55,6 +51,7 @@ background-position: center;
       margin-top: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      cursor: zoom-in;
     }
 
     .download-btn {
@@ -106,6 +103,34 @@ background-position: center;
       transform: scale(1.05);
       border-color: #007bff;
     }
+
+    /* Zoom Modal */
+    .zoom-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .zoom-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+
+    .close-zoom {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -134,6 +159,11 @@ background-position: center;
       <div class="folder-title" onclick="toggleFolder('bodyGrid')">Body Images</div>
       <div class="folder-grid" id="bodyGrid"></div>
     </div>
+  </div>
+
+  <div id="zoomModal" class="zoom-modal" style="display:none;" onclick="closeZoom()">
+    <span class="close-zoom" onclick="closeZoom()">×</span>
+    <img id="zoomedImage" src="">
   </div>
 
   <script>
@@ -170,14 +200,15 @@ background-position: center;
     const baderGrid = document.getElementById('baderGrid');
     const bodyGrid = document.getElementById('bodyGrid');
 
-    // Categorize images into folders
+    const zoomModal = document.getElementById('zoomModal');
+    const zoomedImage = document.getElementById('zoomedImage');
+
     images.forEach(img => {
       const imgEl = document.createElement('img');
       imgEl.src = img.src;
       imgEl.alt = img.name;
       imgEl.title = img.name;
       imgEl.onclick = () => displayImage(img);
-
       if (img.name.includes("Jaal")) {
         jaalGrid.appendChild(imgEl);
       } else if (img.name.includes("Bader")) {
@@ -187,35 +218,28 @@ background-position: center;
       }
     });
 
-    // Show image and hide folders
     function displayImage(image) {
       imageContainer.innerHTML = `
-        <img src="${image.src}" alt="${image.name}">
+        <img src="${image.src}" alt="${image.name}" onclick="zoomImage('${image.src}')">
         <p style="font-weight:bold; margin-top:10px;">${image.name}</p>
         <a href="${image.src}" download="${image.name}" class="download-btn">Download Image</a>
       `;
       suggestions.innerHTML = '';
       search.value = image.name;
-
       document.querySelectorAll('.folder-grid').forEach(folder => folder.style.display = 'none');
     }
 
-    // Toggle folders on click
     function toggleFolder(id) {
       const folder = document.getElementById(id);
       const isVisible = folder.style.display === 'flex';
-
       document.querySelectorAll('.folder-grid').forEach(f => f.style.display = 'none');
       imageContainer.innerHTML = '';
-
       if (!isVisible) folder.style.display = 'flex';
     }
 
-    // Search feature
     search.addEventListener('input', () => {
       const query = search.value.toLowerCase();
       suggestions.innerHTML = '';
-
       if (query) {
         const matches = images.filter(img => img.name.toLowerCase().startsWith(query));
         matches.forEach(img => {
@@ -230,6 +254,15 @@ background-position: center;
         document.querySelectorAll('.folder-grid').forEach(folder => folder.style.display = 'none');
       }
     });
+
+    function zoomImage(src) {
+      zoomedImage.src = src;
+      zoomModal.style.display = 'flex';
+    }
+
+    function closeZoom() {
+      zoomModal.style.display = 'none';
+    }
   </script>
 </body>
-</html>
+  </html>
